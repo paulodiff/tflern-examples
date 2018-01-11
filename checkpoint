@@ -1,0 +1,2 @@
+model_checkpoint_path: "C:\\ai\\nn\\boston-house-tflearn\\boston-house.tflearn"
+all_model_checkpoint_paths: "C:\\ai\\nn\\boston-house-tflearn\\boston-house.tflearn"
