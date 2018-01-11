@@ -146,10 +146,12 @@ def load_data(save_data_file_header, net_input_size, traininig_or_test):
     print(log_info,'X shape: ', X.shape)
     #print(X) print(X.shape) print(len(X))
     print(log_info,'len(X) : ', len(X))
+    print(tabulate(X[0:10,]))
     #input("Press Enter to continue...")
     
     print(log_info, 'y shape', y.shape)
     print(log_info,'len(y) : ',len(y))
+    print(y[0:10])
     
     #print(y2)
     #input("Press Enter to continue...")
@@ -205,7 +207,7 @@ def neural_network_model(input_size, learning_rate):
 
     return model
 
-def train_model(model, X, y, X_test, y_test, model_file_name, n_epoch):
+def train_model(model, X, y, X_test, y_test, model_file_name, n_epoch, batch_size):
 
     log_info = '#train_model:'
 
@@ -230,8 +232,8 @@ def train_model(model, X, y, X_test, y_test, model_file_name, n_epoch):
     
     print(log_info,'training')
     model.fit(  {'input': X}, {'targets': y}, 
-                validation_set=({'input': X_test}, {'targets': y_test}),
-                n_epoch=n_epoch, batch_size=10, show_metric=True, snapshot_epoch=False)
+    #           validation_set=({'input': X_test}, {'targets': y_test}),
+                n_epoch=n_epoch, batch_size=batch_size, show_metric=True, snapshot_epoch=False)
                 
     '''
     model.fit({'input': X}, 
@@ -256,9 +258,9 @@ def train_model(model, X, y, X_test, y_test, model_file_name, n_epoch):
     print('Test accuracy: %0.4f%%' % (score[0] * 100))
 
     
-    y_prediction = model.predict(X_test)
+    #y_prediction = model.predict(X_test)
     # print(y_prediction)
-    print('MSE X_test: %0.4f' % ( mean_squared_error(y_test,y_prediction)) )
+    #print('MSE X_test: %0.4f' % ( mean_squared_error(y_test,y_prediction)) )
     
     
     return model
@@ -353,6 +355,11 @@ def main():
                                 type=int,
                                 # default="mobile_ssd/ssd_mobilenet_v1_coco.pbtxt",
                                 help='number of epoch')                                
+    parser.add_argument("--batch_size", 
+                                default=32,
+                                type=int,
+                                # default="mobile_ssd/ssd_mobilenet_v1_coco.pbtxt",
+                                help='batch_size')                                
     parser.add_argument("--goal_steps", 
                                 default=1000,
                                 type=int,
@@ -408,7 +415,7 @@ def main():
         model = neural_network_model( args.net_input_size, args.learning_rate)        
         # exit(1)
         input("Press Enter to train!...")
-        train_model(model, X, y, X_test, y_test, args.model_file_name, args.n_epoch)    
+        train_model(model, X, y, X_test, y_test, args.model_file_name, args.n_epoch, args.batch_size)    
 
         
     elif args.action == 'evaluate':

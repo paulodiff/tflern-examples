@@ -1,5 +1,6 @@
-Attribute Information: (classes: edible=e, poisonous=p)
+Attribute Information: 
 
+(classes: edible=e, poisonous=p)
 cap-shape: bell=b,conical=c,convex=x,flat=f, knobbed=k,sunken=s
 cap-surface: fibrous=f,grooves=g,scaly=y,smooth=s
 cap-color: brown=n,buff=b,cinnamon=c,gray=g,green=r,pink=p,purple=u,red=e,white=w,yellow=y
